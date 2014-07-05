@@ -37,4 +37,5 @@
 # unit tests include files
 modbus_TST_INC_PATH = $(modbus_PATH)$(DS)test$(DS)utest$(DS)inc
 # unit tests dependencies
-modbus_TST_MOD	    = posix config
+#modbus_TST_MOD	    = posix config platforms
+modbus_TST_MOD	    = config bsp ciaak posix platforms
