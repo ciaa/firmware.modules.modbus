@@ -519,7 +519,7 @@ extern int8_t ciaaModbus_gatewayAddSlave(
    uint32_t loopi;
    int8_t ret = -1;
 
-   if (0 <= hModbusSlave)
+   if ( (0 <= hModbusSlave) && (0 <= hModbusGW) )
    {
       /* enter critical section */
       GetResource(MODBUSR);
@@ -587,7 +587,7 @@ extern int8_t ciaaModbus_gatewayAddTransport(
    int8_t ret = -1;
    int8_t transportType;
 
-   if (0 <= hModbusTransport)
+   if ( (0 <= hModbusTransport) && (0 <= hModbusGW) )
    {
       /* enter critical section */
       GetResource(MODBUSR);
