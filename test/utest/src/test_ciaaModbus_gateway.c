@@ -193,6 +193,25 @@ void test_ciaaModbus_gatewayAddTransport_03(void)
    TEST_ASSERT_EQUAL(-1, ret);
 }
 
+/** \brief Test ciaaModbus_gatewayAddTransport
+ **
+ **/
+void test_ciaaModbus_gatewayAddTransport_04(void)
+{
+   int32_t hModbusGW;
+   int8_t ret;
+   int8_t id = 2;
+   uint8_t pdu[256];
+   uint32_t size = 1;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ret = ciaaModbus_gatewayAddTransport(hModbusGW, -1);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_EQUAL(-1, ret);
+}
+
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
 /*==================[end of file]============================================*/
