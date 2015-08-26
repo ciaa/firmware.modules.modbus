@@ -201,6 +201,18 @@ void test_ciaaModbus_gatewayAddTransport_04(void)
    TEST_ASSERT_EQUAL(-1, ret);
 }
 
+/** \brief Test ciaaModbus_gatewayAddTransport
+ **
+ **/
+void test_ciaaModbus_gatewayAddTransport_05(void)
+{
+   int8_t ret;
+
+   ret = ciaaModbus_gatewayAddTransport(-1, 0);
+
+   TEST_ASSERT_EQUAL(-1, ret);
+}
+
 /** \brief Test ciaaModbus_gatewayAddSlave
  **
  **/
@@ -236,6 +248,18 @@ void test_ciaaModbus_gatewayAddSlave_02(void)
    ciaaModbus_gatewayMainTask(hModbusGW);
 
    TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_EQUAL(-1, ret);
+}
+
+/** \brief Test ciaaModbus_gatewayAddSlave
+ **
+ **/
+void test_ciaaModbus_gatewayAddSlave_03(void)
+{
+   int8_t ret;
+
+   ret = ciaaModbus_gatewayAddSlave(-1, 0);
+
    TEST_ASSERT_EQUAL(-1, ret);
 }
 
