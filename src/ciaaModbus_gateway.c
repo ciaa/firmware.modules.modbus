@@ -63,6 +63,7 @@
 #include "ciaaModbus_master.h"
 #include "ciaaModbus_config.h"
 #include "ciaaPOSIX_stdbool.h"
+#include "ciaaPOSIX_string.h"
 #include "os.h"
 
 
@@ -458,11 +459,45 @@ static int8_t ciaaModbus_gatewayClientProcess(
 extern void ciaaModbus_gatewayInit(void)
 {
    int32_t loopi;
+   int32_t loopj;
 
    for (loopi = 0 ; loopi < CIAA_MODBUS_TOTAL_GATEWAY ; loopi++)
    {
       ciaaModbus_gatewayObj[loopi].inUse = false;
-      /* TODO: init other fields */
+
+      for (loopj = 0 ;
+           CIAA_MODBUS_GATEWAY_TOTAL_CLIENTS > loopj ;
+           loopj++)
+      {
+         ciaaPOSIX_memset(
+               ciaaModbus_gatewayObj[loopi].client[loopj].buffer,
+               0,
+               sizeof(ciaaModbus_gatewayObj[loopi].client[loopj].buffer));
+         ciaaModbus_gatewayObj[loopi].client[loopj].getRespTimeout = NULL;
+         ciaaModbus_gatewayObj[loopi].client[loopj].handler = -1;
+         ciaaModbus_gatewayObj[loopi].client[loopj].id = 0;
+         ciaaModbus_gatewayObj[loopi].client[loopj].inUse = false;
+         ciaaModbus_gatewayObj[loopi].client[loopj].indexServer = -1;
+         ciaaModbus_gatewayObj[loopi].client[loopj].recvMsg = NULL;
+         ciaaModbus_gatewayObj[loopi].client[loopj].sendMsg = NULL;
+         ciaaModbus_gatewayObj[loopi].client[loopj].size = 0;
+         ciaaModbus_gatewayObj[loopi].client[loopj].state = CIAA_MODBUS_CLIENT_STATE_IDLE;
+         ciaaModbus_gatewayObj[loopi].client[loopj].task = NULL;
+         ciaaModbus_gatewayObj[loopi].client[loopj].timeout = 0;
+      }
+
+      for (loopj = 0 ;
+           CIAA_MODBUS_GATEWAY_TOTAL_SERVERS > loopj ;
+           loopj++)
+      {
+         ciaaModbus_gatewayObj[loopi].server[loopj].busy = false;
+         ciaaModbus_gatewayObj[loopi].server[loopj].handler = -1;
+         ciaaModbus_gatewayObj[loopi].server[loopj].id = 0;
+         ciaaModbus_gatewayObj[loopi].server[loopj].inUse = false;
+         ciaaModbus_gatewayObj[loopi].server[loopj].recvMsg = NULL;
+         ciaaModbus_gatewayObj[loopi].server[loopj].sendMsg = NULL;
+         ciaaModbus_gatewayObj[loopi].server[loopj].task = NULL;
+      }
    }
 }
 
