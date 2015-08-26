@@ -519,26 +519,29 @@ extern int8_t ciaaModbus_gatewayAddSlave(
    uint32_t loopi;
    int8_t ret = -1;
 
-   /* enter critical section */
-   GetResource(MODBUSR);
-
-   for (loopi = 0 ; (loopi < CIAA_MODBUS_GATEWAY_TOTAL_SERVERS) && (ret != 0) ; loopi++)
+   if (0 <= hModbusSlave)
    {
-      if (ciaaModbus_gatewayObj[hModbusGW].server[loopi].inUse == false)
-      {
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].inUse = true;
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].handler = hModbusSlave;
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].busy = false;
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].id = ciaaModbus_slaveGetId(hModbusSlave);
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].recvMsg = ciaaModbus_slaveRecvMsg;
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].sendMsg = ciaaModbus_slaveSendMsg;
-         ciaaModbus_gatewayObj[hModbusGW].server[loopi].task = ciaaModbus_slaveTask;
-         ret = 0;
-      }
-   }
+      /* enter critical section */
+      GetResource(MODBUSR);
 
-   /* exit critical section */
-   ReleaseResource(MODBUSR);
+      for (loopi = 0 ; (loopi < CIAA_MODBUS_GATEWAY_TOTAL_SERVERS) && (ret != 0) ; loopi++)
+      {
+         if (ciaaModbus_gatewayObj[hModbusGW].server[loopi].inUse == false)
+         {
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].inUse = true;
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].handler = hModbusSlave;
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].busy = false;
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].id = ciaaModbus_slaveGetId(hModbusSlave);
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].recvMsg = ciaaModbus_slaveRecvMsg;
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].sendMsg = ciaaModbus_slaveSendMsg;
+            ciaaModbus_gatewayObj[hModbusGW].server[loopi].task = ciaaModbus_slaveTask;
+            ret = 0;
+         }
+      }
+
+      /* exit critical section */
+      ReleaseResource(MODBUSR);
+   }
 
    return ret;
 }
