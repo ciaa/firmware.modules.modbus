@@ -556,25 +556,28 @@ extern int8_t ciaaModbus_gatewayAddMaster(
    uint32_t loopi;
    int8_t ret = -1;
 
-   /* enter critical section */
-   GetResource(MODBUSR);
-
-   for (loopi = 0 ; (loopi < CIAA_MODBUS_GATEWAY_TOTAL_CLIENTS) && (ret != 0) ; loopi++)
+   if ( (0 <= hModbusGW) && (0 <= hModbusMaster))
    {
-      if (ciaaModbus_gatewayObj[hModbusGW].client[loopi].inUse == false)
-      {
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].inUse = true;
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].handler = hModbusMaster;
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].recvMsg = ciaaModbus_masterRecvMsg;
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].sendMsg = ciaaModbus_masterSendMsg;
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].task = ciaaModbus_masterTask;
-         ciaaModbus_gatewayObj[hModbusGW].client[loopi].getRespTimeout = ciaaModbus_masterGetRespTimeout;
-         ret = 0;
-      }
-   }
+      /* enter critical section */
+      GetResource(MODBUSR);
 
-   /* exit critical section */
-   ReleaseResource(MODBUSR);
+      for (loopi = 0 ; (loopi < CIAA_MODBUS_GATEWAY_TOTAL_CLIENTS) && (ret != 0) ; loopi++)
+      {
+         if (ciaaModbus_gatewayObj[hModbusGW].client[loopi].inUse == false)
+         {
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].inUse = true;
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].handler = hModbusMaster;
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].recvMsg = ciaaModbus_masterRecvMsg;
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].sendMsg = ciaaModbus_masterSendMsg;
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].task = ciaaModbus_masterTask;
+            ciaaModbus_gatewayObj[hModbusGW].client[loopi].getRespTimeout = ciaaModbus_masterGetRespTimeout;
+            ret = 0;
+         }
+      }
+
+      /* exit critical section */
+      ReleaseResource(MODBUSR);
+   }
 
    return ret;
 }
@@ -646,19 +649,22 @@ extern void ciaaModbus_gatewayMainTask(
    uint32_t countCall;
    int32_t ret;
 
-   for (loopi = 0 ; loopi < CIAA_MODBUS_GATEWAY_TOTAL_CLIENTS ; loopi++)
+   if (0 <= hModbusGW)
    {
-      countCall = 0;
-
-      do
+      for (loopi = 0 ; loopi < CIAA_MODBUS_GATEWAY_TOTAL_CLIENTS ; loopi++)
       {
-         ret = ciaaModbus_gatewayClientProcess(
-               &ciaaModbus_gatewayObj[hModbusGW].client[loopi],
-               ciaaModbus_gatewayObj[hModbusGW].server);
+         countCall = 0;
 
-         countCall++;
+         do
+         {
+            ret = ciaaModbus_gatewayClientProcess(
+                  &ciaaModbus_gatewayObj[hModbusGW].client[loopi],
+                  ciaaModbus_gatewayObj[hModbusGW].server);
 
-      }while ( (ret > 0) && (countCall < CIAA_MODBUS_GATEWAY_LIMIT_CALLS) );
+            countCall++;
+
+         }while ( (ret > 0) && (countCall < CIAA_MODBUS_GATEWAY_LIMIT_CALLS) );
+      }
    }
 }
 
