@@ -129,9 +129,6 @@ void test_ciaaModbus_gatewayAddTransport_01(void)
    int32_t hModbusGW;
    int32_t hModbusTransport = 0;
    int8_t ret;
-   int8_t id = 2;
-   uint8_t pdu[256];
-   uint32_t size = 1;
 
    hModbusGW = ciaaModbus_gatewayOpen();
 
@@ -155,9 +152,6 @@ void test_ciaaModbus_gatewayAddTransport_02(void)
    int32_t hModbusGW;
    int32_t hModbusTransport = 0;
    int8_t ret;
-   int8_t id = 2;
-   uint8_t pdu[256];
-   uint32_t size = 1;
 
    hModbusGW = ciaaModbus_gatewayOpen();
 
@@ -180,9 +174,6 @@ void test_ciaaModbus_gatewayAddTransport_03(void)
    int32_t hModbusGW;
    int32_t hModbusTransport = 0;
    int8_t ret;
-   int8_t id = 2;
-   uint8_t pdu[256];
-   uint32_t size = 1;
 
    hModbusGW = ciaaModbus_gatewayOpen();
 
@@ -201,9 +192,6 @@ void test_ciaaModbus_gatewayAddTransport_04(void)
 {
    int32_t hModbusGW;
    int8_t ret;
-   int8_t id = 2;
-   uint8_t pdu[256];
-   uint32_t size = 1;
 
    hModbusGW = ciaaModbus_gatewayOpen();
 
