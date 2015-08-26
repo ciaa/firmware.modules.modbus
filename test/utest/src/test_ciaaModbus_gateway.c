@@ -221,6 +221,24 @@ void test_ciaaModbus_gatewayAddSlave_01(void)
    TEST_ASSERT_NOT_EQUAL(-1, ret);
 }
 
+/** \brief Test ciaaModbus_gatewayAddSlave
+ **
+ **/
+void test_ciaaModbus_gatewayAddSlave_02(void)
+{
+   int32_t hModbusGW;
+   int8_t ret;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ret = ciaaModbus_gatewayAddSlave(hModbusGW, -1);
+
+   ciaaModbus_gatewayMainTask(hModbusGW);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_EQUAL(-1, ret);
+}
+
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
