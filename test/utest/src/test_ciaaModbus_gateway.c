@@ -56,6 +56,7 @@
 #include "ciaaModbus_config.h"
 #include "ciaaModbus_gateway.h"
 #include "mock_os.h"
+#include "mock_ciaaModbus_transport.h"
 #include "os.h"
 
 /*==================[macros and definitions]=================================*/
@@ -70,6 +71,23 @@
 
 /*==================[internal functions definition]==========================*/
 
+static void ciaaModbus_transportRecvMsg_CALLBACK(int32_t handler,
+      uint8_t* id, uint8_t* pdu, uint32_t* size, int cmock_num_calls)
+{
+   int32_t i;
+
+   TEST_ASSERT_EQUAL(0, handler);
+
+   *id = 2;
+
+   for (i = 0 ; CIAAMODBUS_REQ_PDU_MINLENGTH > i ; i++)
+   {
+      pdu[i] = i & 0xff;
+   }
+
+   *size = CIAAMODBUS_REQ_PDU_MINLENGTH;
+}
+
 /*==================[external functions definition]==========================*/
 /** \brief set Up function
  **
@@ -78,6 +96,14 @@
  **/
 void setUp(void)
 {
+   /* ignore calls GetResource */
+   GetResource_IgnoreAndReturn(E_OK);
+
+   /* ignore calls ReleaseResource */
+   ReleaseResource_IgnoreAndReturn(E_OK);
+
+   /* init gateway module */
+   ciaaModbus_gatewayInit();
 
 }
 
@@ -94,6 +120,78 @@ void doNothing(void)
 {
 }
 
+/** \brief Test ciaaModbus_gatewayAddTransport
+ **
+ **/
+void test_ciaaModbus_gatewayAddTransport_01(void)
+{
+   int32_t hModbusGW;
+   int32_t hModbusTransport = 0;
+   int8_t ret;
+   int8_t id = 2;
+   uint8_t pdu[256];
+   uint32_t size = 1;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ciaaModbus_transportGetType_ExpectAndReturn(hModbusTransport, CIAAMODBUS_TRANSPORT_TYPE_SLAVE);
+   ciaaModbus_transportTask_Expect(hModbusTransport);
+   ciaaModbus_transportRecvMsg_StubWithCallback(ciaaModbus_transportRecvMsg_CALLBACK);
+
+   ret = ciaaModbus_gatewayAddTransport(hModbusGW, hModbusTransport);
+
+   ciaaModbus_gatewayMainTask(hModbusGW);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_NOT_EQUAL(-1, ret);
+}
+
+/** \brief Test ciaaModbus_gatewayAddTransport
+ **
+ **/
+void test_ciaaModbus_gatewayAddTransport_02(void)
+{
+   int32_t hModbusGW;
+   int32_t hModbusTransport = 0;
+   int8_t ret;
+   int8_t id = 2;
+   uint8_t pdu[256];
+   uint32_t size = 1;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ciaaModbus_transportGetType_ExpectAndReturn(hModbusTransport, CIAAMODBUS_TRANSPORT_TYPE_MASTER);
+   ciaaModbus_transportRecvMsg_StubWithCallback(ciaaModbus_transportRecvMsg_CALLBACK);
+
+   ret = ciaaModbus_gatewayAddTransport(hModbusGW, hModbusTransport);
+
+   ciaaModbus_gatewayMainTask(hModbusGW);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_NOT_EQUAL(-1, ret);
+}
+
+/** \brief Test ciaaModbus_gatewayAddTransport
+ **
+ **/
+void test_ciaaModbus_gatewayAddTransport_03(void)
+{
+   int32_t hModbusGW;
+   int32_t hModbusTransport = 0;
+   int8_t ret;
+   int8_t id = 2;
+   uint8_t pdu[256];
+   uint32_t size = 1;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ciaaModbus_transportGetType_ExpectAndReturn(hModbusTransport, CIAAMODBUS_TRANSPORT_TYPE_INVALID);
+
+   ret = ciaaModbus_gatewayAddTransport(hModbusGW, hModbusTransport);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_EQUAL(-1, ret);
+}
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
