@@ -57,6 +57,7 @@
 #include "ciaaModbus_gateway.h"
 #include "mock_os.h"
 #include "mock_ciaaModbus_transport.h"
+#include "mock_ciaaModbus_slave.h"
 #include "os.h"
 
 /*==================[macros and definitions]=================================*/
@@ -211,6 +212,27 @@ void test_ciaaModbus_gatewayAddTransport_04(void)
    TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
    TEST_ASSERT_EQUAL(-1, ret);
 }
+
+/** \brief Test ciaaModbus_gatewayAddSlave
+ **
+ **/
+void test_ciaaModbus_gatewayAddSlave_01(void)
+{
+   int32_t hModbusGW;
+   int8_t ret;
+
+   hModbusGW = ciaaModbus_gatewayOpen();
+
+   ciaaModbus_slaveGetId_ExpectAndReturn(0x11223344, 2);
+
+   ret = ciaaModbus_gatewayAddSlave(hModbusGW, 0x11223344);
+
+   ciaaModbus_gatewayMainTask(hModbusGW);
+
+   TEST_ASSERT_NOT_EQUAL(-1, hModbusGW);
+   TEST_ASSERT_NOT_EQUAL(-1, ret);
+}
+
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
