@@ -59,6 +59,8 @@
 #include "mock_ciaaModbus_transport.h"
 #include "mock_ciaaModbus_slave.h"
 #include "os.h"
+#include "string.h"
+#include "mock_ciaaPOSIX_string.h"
 
 /*==================[macros and definitions]=================================*/
 
@@ -71,6 +73,11 @@
 /*==================[external data definition]===============================*/
 
 /*==================[internal functions definition]==========================*/
+static void * memset_stub(void * s, int c, size_t n, int cmock_num_calls)
+{
+   return memset(s, c, n);
+}
+
 
 static void ciaaModbus_transportRecvMsg_CALLBACK(int32_t handler,
       uint8_t* id, uint8_t* pdu, uint32_t* size, int cmock_num_calls)
@@ -103,9 +110,11 @@ void setUp(void)
    /* ignore calls ReleaseResource */
    ReleaseResource_IgnoreAndReturn(E_OK);
 
+   /* set stub callback */
+   ciaaPOSIX_memset_StubWithCallback(memset_stub);
+
    /* init gateway module */
    ciaaModbus_gatewayInit();
-
 }
 
 /** \brief tear Down function
