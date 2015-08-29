@@ -53,7 +53,7 @@
 
 /*==================[inclusions]=============================================*/
 #include "unity.h"
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "ciaaModbus_gateway.h"
 #include "mock_os.h"
 #include "mock_ciaaModbus_transport.h"

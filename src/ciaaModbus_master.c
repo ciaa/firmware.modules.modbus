@@ -61,7 +61,7 @@
 #include "ciaaModbus_master.h"
 #include "ciaaModbus_transport.h"
 #include "ciaaPOSIX_stdbool.h"
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "os.h"
 
 #if CIAA_MODBUS_TOTAL_MASTERS > 0

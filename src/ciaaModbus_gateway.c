@@ -61,7 +61,7 @@
 #include "ciaaModbus_transport.h"
 #include "ciaaModbus_slave.h"
 #include "ciaaModbus_master.h"
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "ciaaPOSIX_stdbool.h"
 #include "ciaaPOSIX_string.h"
 #include "os.h"

@@ -59,7 +59,7 @@
  */
 
 /*==================[inclusions]=============================================*/
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "ciaaPOSIX_stdint.h"
 #include "ciaaPOSIX_stdbool.h"
 

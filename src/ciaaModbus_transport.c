@@ -56,7 +56,7 @@
  */
 
 /*==================[inclusions]=============================================*/
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "ciaaModbus_transport.h"
 #include "ciaaModbus_ascii.h"
 #include "ciaaPOSIX_stdio.h"

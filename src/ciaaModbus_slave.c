@@ -64,7 +64,7 @@
 #include "ciaaPOSIX_stdbool.h"
 #include "ciaaModbus_slave.h"
 #include "ciaaModbus_protocol.h"
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "os.h"
 
 /*==================[macros and definitions]=================================*/

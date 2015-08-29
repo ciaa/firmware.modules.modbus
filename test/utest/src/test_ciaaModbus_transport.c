@@ -54,7 +54,7 @@
 /*==================[inclusions]=============================================*/
 #include "unity.h"
 #include "ciaaModbus_transport.h"
-#include "ciaaModbus_config.h"
+#include "ciaaModbus_Cfg.h"
 #include "mock_os.h"
 #include "mock_ciaaPOSIX_stdio.h"
 #include "mock_ciaaModbus_ascii.h"
