@@ -67,8 +67,9 @@
 #include "ciaaModbus_Cfg.h"
 #include "os.h"
 
-/*==================[macros and definitions]=================================*/
+#if CIAA_MODBUS_TOTAL_SLAVES > 0
 
+/*==================[macros and definitions]=================================*/
 
 typedef struct
 {
@@ -586,6 +587,8 @@ extern uint8_t ciaaModbus_slaveGetId(int32_t handler)
 {
    return ciaaModbus_slaveObj[handler].id;
 }
+
+#endif /* #if CIAA_MODBUS_TOTAL_SLAVES > 0 */
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
