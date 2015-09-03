@@ -35,8 +35,8 @@
 #define CIAAMODBUS_CONFIG_H_
 /** \brief Modbus Example Config Header File
  **
- ** This files shall be included by modules using the interfaces provided by
- ** the Modbus
+ ** This a sample file for configuration of modbus stack. Copy to own 
+ ** project and eliminate ".sample" extension.
  **
  **/
 
