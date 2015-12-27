@@ -39,12 +39,6 @@
 /** \addtogroup Modbus CIAA Modbus master test
  ** @{ */
 
-/*
- * modification history (new versions first)
- * -----------------------------------------------------------
- * 20141129 v0.0.1 GMuro implement first tests
- */
-
 /*==================[inclusions]=============================================*/
 #include "unity.h"
 #include "ciaaModbus_master.h"

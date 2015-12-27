@@ -41,14 +41,6 @@
 /** \addtogroup Modbus CIAA Modbus
  ** @{ */
 
-/*
- * modification history (new versions first)
- * -----------------------------------------------------------
- * 20150828 v0.8.2 GMuro   improve integer handlers
- * 20150604 v0.8.1 GMuro   replace numbers for macros
- * 20141108 v0.0.1 GMuro   initial version
- */
-
 /*==================[inclusions]=============================================*/
 #include "ciaaModbus_Cfg.h"
 #include "ciaaModbus_transport.h"

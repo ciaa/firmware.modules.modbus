@@ -39,12 +39,6 @@
 /** \addtogroup Modbus CIAA Modbus
  ** @{ */
 
-/*
- * modification history (new versions first)
- * -----------------------------------------------------------
- * 20150825 v0.0.1 GMuro implement first tests
- */
-
 /*==================[inclusions]=============================================*/
 #include "unity.h"
 #include "ciaaModbus_Cfg.h"
