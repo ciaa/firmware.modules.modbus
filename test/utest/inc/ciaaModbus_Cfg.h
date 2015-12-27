@@ -45,13 +45,6 @@
  ** @{ */
 
 /*
- * Initials     Name
- * ---------------------------
- * GMuro        Gustavo Muro
- *
- */
-
-/*
  * modification history (new versions first)
  * -----------------------------------------------------------
  * 20141003 v0.0.1 initials initial
