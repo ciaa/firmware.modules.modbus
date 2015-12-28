@@ -44,20 +44,6 @@
 /** \addtogroup Modbus CIAA Modbus
  ** @{ */
 
-/*
- * Initials     Name
- * ---------------------------
- * Gmuro        Gustavo Muro
- */
-
-/*
- * modification history (new versions first)
- * -----------------------------------------------------------
- * 20150828 v0.8.2 GMuro   improve integer handlers
- * 20150604 v0.8.1 GMuro   replace numbers for macros
- * 20141113 v0.0.1 initials initial
- */
-
 /*==================[inclusions]=============================================*/
 #include "ciaaModbus_Cfg.h"
 #include "ciaaPOSIX_stdint.h"

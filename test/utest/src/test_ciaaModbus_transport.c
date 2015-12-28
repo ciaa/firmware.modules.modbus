@@ -39,18 +39,6 @@
 /** \addtogroup Modbus CIAA Modbus
  ** @{ */
 
-/*
- * Initials     Name
- * ---------------------------
- * GMuro        Gustavo Muro
- */
-
-/*
- * modification history (new versions first)
- * -----------------------------------------------------------
- * 20140906 v0.0.1 GMuro implement first tests
- */
-
 /*==================[inclusions]=============================================*/
 #include "unity.h"
 #include "ciaaModbus_transport.h"
